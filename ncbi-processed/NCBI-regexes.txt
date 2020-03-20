@@ -1,0 +1,16 @@
+NCBI preprocessing
+open each corpus
+run the following replace to shape in a form
+regex:(\d*)(\t)(([^\n\r])*)(\t)(([^\n\r])*)
+replace: \3\n\6\n
+
+Then annotations should be either removed or fixed to match the OpenNLP format
+Run the following regex
+#to strip annotations
+regex: (<category=")(\w*)(">)(.*?)(<\/category>)
+replace : \4
+
+regex: (<category=")(\w*)(">)(.*?)(<\/category>)
+replace : \4 #to strip annotations
+replace : <START:disease> $4 <END> # to convert it to OpenNLP compatible format
+
